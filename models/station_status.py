@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel
 
 
 def unix_to_datetime(value: int) -> datetime:
@@ -19,11 +19,6 @@ class StationStatus(BaseModel):
     is_returning: int
     last_reported: int
 
-    @field_validator("last_reported", mode="before")
-    @classmethod
-    def parse_last_reported(cls, value: int) -> datetime:
-        return unix_to_datetime(value)
-
 
 class StationStatusData(BaseModel):
     stations: list[StationStatus]
@@ -34,8 +29,3 @@ class StationStatusResponse(BaseModel):
     ttl: int
     version: str
     data: StationStatusData
-
-    @field_validator("last_updated", mode="before")
-    @classmethod
-    def parse_last_updated(cls, value: int) -> datetime:
-        return unix_to_datetime(value)
