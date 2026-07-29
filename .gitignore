@@ -10,4 +10,4 @@ htmlcov/
 *.parquet
 .vscode/
 .idea/
-test.py
+*test.py

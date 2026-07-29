@@ -1,20 +1,16 @@
-from producer.client import CitiBikeClient
+from common.logging import setup_logging
+from producer.service import ProducerService
 
 
-def main():
-    print("Hello from citibike-realtime!")
-    client = CitiBikeClient()
+def main() -> None:
+    setup_logging()
 
-    response = client.fetch_station_status()
+    service = ProducerService()
 
-    print(f"Stations: {len(response.data.stations)}")
-
-    first_station = response.data.stations[0]
-
-    print(first_station.station_id)
-    print(first_station.num_bikes_available)
-
-    client.close()
+    try:
+        service.run()
+    finally:
+        service.close()
 
 
 if __name__ == "__main__":
