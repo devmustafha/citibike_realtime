@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     citibike_api_url: str
     kafka_bootstrap_servers: str
     poll_interval_seconds: int = 30
+    kafka_station_status_topic: str = "station-status"
 
     model_config = SettingsConfigDict(
         env_file=".env",
