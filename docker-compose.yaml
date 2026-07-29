@@ -73,7 +73,19 @@ services:
         - citibike-network
 
     restart: unless-stopped
-    
+  spark:
+    image: apache/spark:4.0.1
+    container_name: citibike-spark
+    command: >
+      /opt/spark/bin/spark-class
+      org.apache.spark.deploy.master.Master
+    ports:
+      - "8082:8080"
+      - "7077:7077"
+    networks:
+      - citibike-network
+    restart: unless-stopped
+
 volumes:
   minio-data:
   kafka-data:
