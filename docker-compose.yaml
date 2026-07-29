@@ -73,9 +73,9 @@ services:
         - citibike-network
 
     restart: unless-stopped
-  spark:
+  spark-master:
     image: apache/spark:4.0.1
-    container_name: citibike-spark
+    container_name: citibike-spark-master
     command: >
       /opt/spark/bin/spark-class
       org.apache.spark.deploy.master.Master
@@ -86,6 +86,23 @@ services:
       - citibike-network
     restart: unless-stopped
 
+  spark-worker-1:
+    image: apache/spark:4.0.1
+    container_name: citibike-spark-worker
+    hostname: spark-worker
+
+    command: >
+      /opt/spark/bin/spark-class
+      org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077
+
+    depends_on:
+      - spark-master
+
+    networks:
+      - citibike-network
+
+    restart: unless-stopped
 volumes:
   minio-data:
   kafka-data:
