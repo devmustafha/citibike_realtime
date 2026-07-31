@@ -78,6 +78,8 @@ services:
     image: apache/spark:3.5.6
     container_name: citibike-spark-master
     hostname: spark-master
+    environment:
+      PYTHONPATH: /opt/spark/apps
     command:
       - /opt/spark/bin/spark-class
       - org.apache.spark.deploy.master.Master
@@ -86,6 +88,7 @@ services:
       - "8081:8080"
     volumes:
       - ./spark/apps:/opt/spark/apps
+      - ./spark/ivy:/opt/spark/.ivy2
     networks:
       - citibike-network
 
@@ -101,6 +104,7 @@ services:
       - spark://spark-master:7077
     volumes:
       - ./spark/apps:/opt/spark/apps
+      - ./spark/ivy:/opt/spark/.ivy2
     networks:
       - citibike-network
 
