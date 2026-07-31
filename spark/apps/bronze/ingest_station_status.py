@@ -1,49 +1,19 @@
-from common.schemas import station_status_schema
+from bronze.transformer import transform_station_status
+from common.kafka import read_kafka_stream
 from common.session import create_spark_session
-from pyspark.sql.functions import col, current_timestamp, from_json
+from sink import write_bronze
 
-from common.config import BRONZE_PATH, CHECKPOINT_PATH, KAFKA_BOOTSTRAP, KAFKA_TOPIC
+from common.config import KAFKA_BOOTSTRAP, KAFKA_TOPIC
 
 
-def main():
+def main() -> None:
     spark = create_spark_session("bronze-station-status")
 
-    kafka_df = (
-        spark.readStream.format("kafka")
-        .option("kafka.bootstrap.servers", KAFKA_BOOTSTRAP)
-        .option("subscribe", KAFKA_TOPIC)
-        .load()
-    )
+    kafka_df = read_kafka_stream(spark, KAFKA_BOOTSTRAP, KAFKA_TOPIC)
 
-    parsed_df = kafka_df.select(
-        from_json(
-            col("value").cast("string"),
-            station_status_schema,
-        ).alias("data"),
-        col("timestamp").alias("kafka_timestamp"),
-        col("topic"),
-        col("partition"),
-        col("offset"),
-    ).select(
-        "data.*",
-        "kafka_timestamp",
-        "topic",
-        "partition",
-        "offset",
-    )
+    bronze_df = transform_station_status(kafka_df)
 
-    bronze_df = parsed_df.withColumn(
-        "ingested_at",
-        current_timestamp(),
-    )
-
-    query = (
-        bronze_df.writeStream.format("parquet")
-        .option("path", BRONZE_PATH)
-        .option("checkpointLocation", CHECKPOINT_PATH)
-        .outputMode("append")
-        .start()
-    )
+    query = write_bronze(bronze_df)
 
     query.awaitTermination()
 
