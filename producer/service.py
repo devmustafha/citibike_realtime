@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 
-from kafka.producer import KafkaProducer
+from producer.kafka import KafkaProducer
 
 from .client import CitiBikeClient
 

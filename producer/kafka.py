@@ -5,7 +5,7 @@ import logging
 from confluent_kafka import Producer
 
 from common.config import settings
-from models.station_status import StationStatus
+from producer.station_status import StationStatusData
 
 logger = logging.getLogger(__name__)
 
@@ -16,9 +16,9 @@ class KafkaProducer:
             {"bootstrap.servers": settings.kafka_bootstrap_servers}
         )
 
-    def send_station(self, station: StationStatus):
+    def publish(self, topic, station: StationStatusData):
         self._producer.produce(
-            topic=settings.kafka_station_status_topic,
+            topic=topic,
             key=station.station_id,
             value=station.model_dump_json(),
             callback=self._delivery_report,
