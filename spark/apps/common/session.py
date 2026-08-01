@@ -25,6 +25,8 @@ def create_spark_session(app_name: str) -> SparkSession:
             "spark.hadoop.fs.s3a.connection.ssl.enabled",
             "false",
         )
+        .config("spark.executor.cores", "1")
+        .config("spark.cores.max", "1")
         .getOrCreate()
     )
 
