@@ -75,7 +75,10 @@ services:
     restart: unless-stopped
   
   spark-master:
-    image: apache/spark:3.5.6
+    # image: apache/spark:3.5.6
+    build:
+      context: .
+      dockerfile: docker/spark/Dockerfile
     container_name: citibike-spark-master
     hostname: spark-master
     environment:
@@ -88,14 +91,23 @@ services:
       - "8081:8080"
     volumes:
       - ./spark/apps:/opt/spark/apps
-      - ./spark/ivy:/opt/spark/.ivy2
+
     networks:
       - citibike-network
 
+    restart: unless-stopped
+
   spark-worker:
-    image: apache/spark:3.5.6
+    # image: apache/spark:3.5.6
+    build:
+      context: .
+      dockerfile: docker/spark/Dockerfile
     container_name: citibike-spark-worker
     hostname: spark-worker
+    environment:
+      PYTHONPATH: /opt/spark/apps
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 2g
     depends_on:
       - spark-master
     command:
@@ -104,10 +116,11 @@ services:
       - spark://spark-master:7077
     volumes:
       - ./spark/apps:/opt/spark/apps
-      - ./spark/ivy:/opt/spark/.ivy2
+
     networks:
       - citibike-network
 
+    restart: unless-stopped
 volumes:
   minio-data:
   kafka-data:
