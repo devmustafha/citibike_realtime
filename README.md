@@ -118,7 +118,7 @@ citibike-realtime/
 -   [x] Kafka integration
 -   [x] Spark Structured Streaming
 -   [x] Bronze ingestion
--   [ ] Silver layer
+-   [x] Silver layer
 -   [ ] Gold layer
 -   [ ] DuckDB analytics
 -   [ ] dbt
