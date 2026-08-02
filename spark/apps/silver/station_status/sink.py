@@ -1,6 +1,5 @@
+from common.storage import silver_checkpoint_path, silver_path
 from pyspark.sql import DataFrame
-
-from common.config import SILVER_STATION_STATUS_CHECKPOINT, SILVER_STATION_STATUS_PATH
 
 
 def write_silver_station_status(df: DataFrame):
@@ -8,8 +7,8 @@ def write_silver_station_status(df: DataFrame):
         df.writeStream.format("parquet")
         .outputMode("append")
         .trigger(processingTime="30 seconds")
-        .option("path", SILVER_STATION_STATUS_PATH)
-        .option("checkpointLocation", SILVER_STATION_STATUS_CHECKPOINT)
+        .option("path", silver_path("station_status"))
+        .option("checkpointLocation", silver_checkpoint_path("station_status"))
         .partitionBy("year", "month", "day")
         .start()
     )

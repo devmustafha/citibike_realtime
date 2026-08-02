@@ -1,7 +1,6 @@
+from common.storage import bronze_checkpoint_path, bronze_path
 from pyspark.sql import DataFrame
 from pyspark.sql.streaming import StreamingQuery
-
-from common.config import BRONZE_STATION_CHECKPOINT_PATH, BRONZE_STATION_STATUS_PATH
 
 
 def write_bronze(df: DataFrame) -> StreamingQuery:
@@ -9,7 +8,7 @@ def write_bronze(df: DataFrame) -> StreamingQuery:
         df.writeStream.format("parquet")
         .outputMode("append")
         .trigger(processingTime="30 seconds")
-        .option("path", BRONZE_STATION_STATUS_PATH)
-        .option("checkpointLocation", BRONZE_STATION_CHECKPOINT_PATH)
+        .option("path", bronze_path("station_status"))
+        .option("checkpointLocation", bronze_checkpoint_path("station_status"))
         .start()
     )
