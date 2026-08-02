@@ -23,3 +23,7 @@ def bronze_checkpoint_path(dataset: str) -> str:
 
 def silver_checkpoint_path(dataset: str) -> str:
     return f"s3a://{SILVER_BUCKET}/checkpoints/{dataset}"
+
+
+def gold_checkpoint_path(dataset: str) -> str:
+    return f"s3a://{GOLD_BUCKET}/checkpoints/{dataset}"
