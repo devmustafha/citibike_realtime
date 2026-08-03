@@ -8,7 +8,9 @@ def main():
     spark = create_spark_session("system_metrics_session")
     station_latest_df = read_bucket(spark, GOLD_STATION_LATEST_PATH)
     system_metrics = build_system_metrics(station_latest_df)
-    write_bucket(system_metrics, GOLD_SYSTEM_METRICS_PATH)
+    write_bucket(
+        system_metrics, GOLD_SYSTEM_METRICS_PATH, partitionBy=["year", "month", "day"]
+    )
 
     spark.stop()
 
