@@ -1,7 +1,10 @@
 from datetime import date
 
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import avg, col, max, min
+from pyspark.sql.functions import avg, col, count, max, min
+from pyspark.sql.types import DecimalType
+
+from common.config import EXPECTED_OBSERVATIONS_PER_DAY
 
 
 def build_station_daily_metrics(df: DataFrame, process_date: date) -> DataFrame:
@@ -16,5 +19,17 @@ def build_station_daily_metrics(df: DataFrame, process_date: date) -> DataFrame:
             min("num_docks_available").alias("min_docks_available"),
             max("num_docks_available").alias("max_docks_available"),
             avg("num_docks_available").alias("avg_docks_available"),
+            count("*").alias("observation_count"),
+        )
+        .withColumn(
+            "avg_bike_occupancy_rate",
+            (
+                col("avg_bikes_available")
+                / (col("avg_bikes_available") + col("avg_docks_available"))
+            ).cast(DecimalType(scale=2)),
+        )
+        .withColumn(
+            "is_complete_hour",
+            (col("observation_count") / EXPECTED_OBSERVATIONS_PER_DAY) > 0.9,
         )
     )
