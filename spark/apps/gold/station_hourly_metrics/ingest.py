@@ -2,7 +2,7 @@ from datetime import date
 
 from common.session import create_spark_session
 from common.storage import GOLD_STATION_HOURLY_PATH, SILVER_STATION_STATUS_PATH
-from gold.io import read_silver, write_gold
+from gold.io import read_bucket, write_bucket
 from transform import build_station_hourly_metrics
 
 working_date = date.today()
@@ -10,9 +10,9 @@ working_date = date.today()
 
 def main() -> None:
     spark = create_spark_session("gold-session")
-    silver_df = read_silver(spark, SILVER_STATION_STATUS_PATH)
+    silver_df = read_bucket(spark, SILVER_STATION_STATUS_PATH)
     hourly_metrics = build_station_hourly_metrics(silver_df, process_date=working_date)
-    write_gold(hourly_metrics, GOLD_STATION_HOURLY_PATH, partitionBy=["hour"])
+    write_bucket(hourly_metrics, GOLD_STATION_HOURLY_PATH, partitionBy=["hour"])
 
     spark.stop()
 
