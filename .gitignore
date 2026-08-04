@@ -11,3 +11,15 @@ htmlcov/
 .vscode/
 .idea/
 *test.py
+
+# AIRFLOW SECTION
+# Airflow logs
+*logs/
+
+# Airflow PID files
+*.pid
+
+# Airflow scheduler metadata
+*.db
+*airflow.cfg
+*webserver_config.py

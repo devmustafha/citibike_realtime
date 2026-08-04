@@ -119,7 +119,7 @@ citibike-realtime/
 -   [x] Spark Structured Streaming
 -   [x] Bronze ingestion
 -   [x] Silver layer
--   [ ] Gold layer
+-   [x] Gold layer
 -   [ ] DuckDB analytics
 -   [ ] dbt
 -   [ ] Airflow
