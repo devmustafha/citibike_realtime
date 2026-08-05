@@ -120,8 +120,7 @@ citibike-realtime/
 -   [x] Bronze ingestion
 -   [x] Silver layer
 -   [x] Gold layer
--   [ ] DuckDB analytics
--   [ ] dbt
+-   [x] DuckDB analytics
 -   [x] Airflow
 -   [ ] CI/CD
 
