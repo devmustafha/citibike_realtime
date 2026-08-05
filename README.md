@@ -122,7 +122,7 @@ citibike-realtime/
 -   [x] Gold layer
 -   [ ] DuckDB analytics
 -   [ ] dbt
--   [ ] Airflow
+-   [x] Airflow
 -   [ ] CI/CD
 
 ## License

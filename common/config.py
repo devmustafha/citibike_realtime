@@ -9,6 +9,14 @@ class Settings(BaseSettings):
     bronze_station_status_path: str
     silver_station_status_path: str
     silver_station_checkpoint_path: str
+    minio_endpoint: str
+    minio_access_key: str
+    minio_secret_key: str
+    minio_secure: bool = False
+    latest_station_status_path: str = "s3a://gold/latest_station_status"
+    station_hourly_metrics_path: str = "s3a://gold/station_hourly"
+    station_daily_metrics_path: str = "s3a://gold/station_daily"
+    system_metrics_path: str = "s3a://gold/system_metrics"
 
     model_config = SettingsConfigDict(
         env_file=".env",
