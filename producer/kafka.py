@@ -4,9 +4,10 @@ import logging
 
 from confluent_kafka import Producer
 
-from common.config import settings
+from common.config import get_settings
 from producer.station_status import StationStatusData
 
+settings = get_settings()
 logger = logging.getLogger(__name__)
 
 

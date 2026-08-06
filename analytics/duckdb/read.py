@@ -1,6 +1,8 @@
 from duckdb import DuckDBPyConnection, DuckDBPyRelation
 
-from common.config import settings
+from common.config import get_settings
+
+settings = get_settings()
 
 
 def _read_bucket(

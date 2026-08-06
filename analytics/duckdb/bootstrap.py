@@ -1,6 +1,8 @@
 from connection import get_connection
 
-from common.config import settings
+from common.config import get_settings
+
+settings = get_settings()
 
 VIEWS = {
     "latest_station_status": settings.latest_station_status_path,

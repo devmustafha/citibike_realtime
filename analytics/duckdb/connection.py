@@ -2,7 +2,9 @@ from pathlib import Path
 
 import duckdb
 
-from common.config import settings
+from common.config import get_settings
+
+settings = get_settings()
 
 DB_PATH = Path(__file__).parent / "analytics.duckdb"
 
