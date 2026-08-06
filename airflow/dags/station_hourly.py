@@ -14,7 +14,7 @@ from utils.spark import spark_command
     tags=["gold", "citibike"],
 )
 def station_hourly_dag():
-    station_hourly = BashOperator(
+    BashOperator(
         task_id="station_hourly", bash_command=spark_command("station_hourly_metrics")
     )
 
