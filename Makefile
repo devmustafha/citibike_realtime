@@ -25,7 +25,11 @@ down:
 logs:
 	docker compose logs -f
 
-quality:
-	uv run ruff format --check .
-	uv run ruff check .
-	uv run pytest
+lint:
+	ruff check .
+
+format:
+	ruff format .
+
+test:
+	pytest
