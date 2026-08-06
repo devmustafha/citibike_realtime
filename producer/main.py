@@ -3,12 +3,11 @@ from kafka import KafkaProducer
 
 from common.config import get_settings
 
-settings = get_settings()
-
 
 def main() -> None:
     client = CitiBikeClient()
     producer = KafkaProducer()
+    settings = get_settings()
 
     stations = client.get_station_status()
 

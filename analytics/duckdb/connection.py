@@ -4,8 +4,6 @@ import duckdb
 
 from common.config import get_settings
 
-settings = get_settings()
-
 DB_PATH = Path(__file__).parent / "analytics.duckdb"
 
 
@@ -15,6 +13,7 @@ def configure_extensions(conn):
 
 
 def configure_s3(conn):
+    settings = get_settings()
     conn.execute(f"SET s3_endpoint='{settings.minio_endpoint}'")
     conn.execute(f"SET s3_access_key_id='{settings.minio_access_key}'")
     conn.execute(f"SET s3_secret_access_key='{settings.minio_secret_key}'")
