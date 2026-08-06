@@ -33,3 +33,8 @@ format:
 
 test:
 	pytest
+
+quality:
+	uv run ruff format --check .
+	uv run ruff check .
+	uv run pytest
