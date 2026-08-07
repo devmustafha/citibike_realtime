@@ -4,7 +4,7 @@ import httpx
 
 from common.config import get_settings
 from common.logging import setup_logging
-from producer.station_status import StationStatusData, StationStatusResponse
+from producer.models import StationStatusData, StationStatusResponse
 
 settings = get_settings()
 setup_logging()
