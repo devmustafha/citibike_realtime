@@ -7,12 +7,12 @@ from confluent_kafka import Producer
 from common.config import get_settings
 from producer.models import StationStatusData
 
-settings = get_settings()
 logger = logging.getLogger(__name__)
 
 
 class KafkaProducer:
     def __init__(self):
+        settings = get_settings()
         self._producer = Producer(
             {"bootstrap.servers": settings.kafka_bootstrap_servers}
         )
