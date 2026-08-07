@@ -15,7 +15,10 @@ from utils.spark import spark_command
 )
 def station_hourly_dag():
     BashOperator(
-        task_id="station_hourly", bash_command=spark_command("station_hourly_metrics")
+        task_id="station_hourly",
+        bash_command=spark_command(
+            "station_hourly_metrics", "{{ logical_date.strftime('%Y-%m-%d') }}"
+        ),
     )
 
 
