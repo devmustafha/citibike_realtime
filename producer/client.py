@@ -6,7 +6,6 @@ from common.config import get_settings
 from common.logging import setup_logging
 from producer.models import StationStatusData, StationStatusResponse
 
-settings = get_settings()
 setup_logging()
 
 
@@ -15,16 +14,13 @@ class CitiBikeClient:
 
     def __init__(self) -> None:
         self._client = httpx.Client(
-            base_url=settings.citibike_api_url,
             timeout=10,
         )
 
     def get_station_status(self) -> list[StationStatusData]:
+        settings = get_settings()
         try:
-            response = self._client.get(
-                settings.citibike_api_url,
-                timeout=10,
-            )
+            response = self._client.get(settings.citibike_api_url)
 
             response.raise_for_status()
 

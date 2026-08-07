@@ -1,7 +1,6 @@
-from client import CitiBikeClient
-from kafka import KafkaProducer
-
 from common.config import get_settings
+from producer.client import CitiBikeClient
+from producer.kafka import KafkaProducer
 
 
 def main() -> None:
