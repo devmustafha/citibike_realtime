@@ -6,9 +6,9 @@ set -euo pipefail
 # Configuration
 # ---------------------------------------------------------
 
-SPARK_CONTAINER="citibike-spark-master"
 SPARK_SUBMIT="/opt/spark/bin/spark-submit"
 APP_ROOT="/opt/spark/apps"
+SPARK_MASTER="spark://spark-master:7077"
 
 # ---------------------------------------------------------
 # Validate Input
@@ -24,11 +24,11 @@ if [ $# -ne 1 ]; then
     echo "  station_hourly_metrics"
     echo "  station_daily_metrics"
     echo "  system_metrics"
-    exit 1
 fi
 
 JOB="$1"
-
+PROCESS_DATE="${2:-}"
+echo $JOB
 # ---------------------------------------------------------
 # Map Job Name to Spark Application
 # ---------------------------------------------------------
@@ -72,13 +72,22 @@ echo "======================================="
 echo "Submitting Spark Job"
 echo "Job       : $JOB"
 echo "Script    : $APP_ROOT/$APP"
-echo "Container : $SPARK_CONTAINER"
+if [ -n "$PROCESS_DATE" ]; then
+    echo "Process date: $PROCESS_DATE"
+fi
+
 echo "======================================="
 
-spark-submit \
-    --master spark://spark-master:7077 \
-    "$APP_ROOT/$APP"
-
+if [ -n "$PROCESS_DATE" ]; then
+    "$SPARK_SUBMIT" \
+        --master "$SPARK_MASTER" \
+        "$APP_ROOT/$APP" \
+        --process-date "$PROCESS_DATE"
+else
+    "$SPARK_SUBMIT" \
+        --master "$SPARK_MASTER" \
+        "$APP_ROOT/$APP"
+fi
 echo ""
 echo "======================================="
 echo "Spark job completed successfully."
