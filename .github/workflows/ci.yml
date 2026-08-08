@@ -18,6 +18,23 @@ jobs:
     name: Quality Checks
     runs-on: ubuntu-latest
 
+    env:
+      CITIBIKE_API_URL: "https://example.com"
+      KAFKA_BOOTSTRAP_SERVERS: "localhost:9092"
+
+      BRONZE_STATION_STATUS_PATH: "s3a://bronze/station_status"
+
+      SILVER_STATION_STATUS_PATH: "s3a://silver/station_status"
+      SILVER_STATION_CHECKPOINT_PATH: "s3a://checkpoints/station_status"
+
+      MINIO_ENDPOINT: "localhost:9000"
+      MINIO_ACCESS_KEY: "test"
+      MINIO_SECRET_KEY: "test"
+      MINIO_SECURE: "false"
+
+      TELEGRAM_BOT_TOKEN: "test"
+      TELEGRAM_CHAT_ID: "test"
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

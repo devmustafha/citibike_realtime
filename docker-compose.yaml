@@ -39,8 +39,8 @@ services:
     command: server /data --console-address ":9001"
 
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
 
     ports:
       - "9000:9000" # S3 API
@@ -231,9 +231,9 @@ services:
     container_name: citibike-airflow-postgres
 
     environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_DB: airflow
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
 
     volumes:
       - airflow-postgres-data:/var/lib/postgresql/data
