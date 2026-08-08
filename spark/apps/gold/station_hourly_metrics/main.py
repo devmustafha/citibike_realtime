@@ -11,7 +11,11 @@ def main(process_date: date) -> None:
     spark = create_spark_session("gold-session")
     silver_df = read_bucket(spark, SILVER_STATION_STATUS_PATH)
     hourly_metrics = build_station_hourly_metrics(silver_df, process_date=process_date)
-    write_bucket(hourly_metrics, GOLD_STATION_HOURLY_PATH, partitionBy=["hour"])
+    write_bucket(
+        hourly_metrics,
+        GOLD_STATION_HOURLY_PATH,
+        partitionBy=["year", "month", "day", "hour"],
+    )
 
     spark.stop()
 

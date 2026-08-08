@@ -11,7 +11,8 @@ def build_station_daily_metrics(df: DataFrame, process_date: date) -> DataFrame:
     return (
         df.filter(col("year") == process_date.year)
         .filter(col("month") == process_date.month)
-        .groupBy("station_id", "day")
+        .filter(col("day") == process_date.day)
+        .groupBy("station_id", "year", "month", "day")
         .agg(
             min("num_bikes_available").alias("min_bikes_available"),
             max("num_bikes_available").alias("max_bikes_available"),
@@ -29,7 +30,7 @@ def build_station_daily_metrics(df: DataFrame, process_date: date) -> DataFrame:
             ).cast(DecimalType(scale=2)),
         )
         .withColumn(
-            "is_complete_hour",
+            "is_complete_day",
             (col("observation_count") / EXPECTED_OBSERVATIONS_PER_DAY) > 0.9,
         )
     )
