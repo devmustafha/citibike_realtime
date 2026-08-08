@@ -5,6 +5,8 @@ FROM apache/airflow:2.10.5
 # COPY airflow/requirements.txt /requirements.txt
 
 # RUN pip install --no-cache-dir -r /requirements.txt
+RUN pip install --no-cache-dir \
+    requests
 
 USER root
 RUN apt-get update && \
