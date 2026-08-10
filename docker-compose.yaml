@@ -60,6 +60,21 @@ services:
     networks:
       - citibike-network
 
+  producer:
+    build:
+      context: .
+      dockerfile: producer/Dockerfile
+    container_name: citibike-producer
+
+    env_file:
+      - .env
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka
+    restart: unless-stopped
+    networks:
+      - citibike-network
   # -----------------------
   # Messaging
   # -----------------------
@@ -248,6 +263,21 @@ services:
       - citibike-network
 
     restart: unless-stopped
+  dashboard:
+    build:
+      context: .
+      dockerfile: dashboard/Dockerfile
+    container_name: citibike-dashboard
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      MINIO_ENDPOINT: minio:9000
+    depends_on:
+      - minio
+    networks:
+      - citibike-network
 volumes:
   minio-data:
   kafka-data:
