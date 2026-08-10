@@ -5,10 +5,10 @@ from common.config import get_settings
 def _get_views():
     settings = get_settings()
     return {
-        "latest_station_status": settings.latest_station_status_path,
-        "system_metrics": settings.system_metrics_path,
-        "station_hourly_metrics": settings.station_hourly_metrics_path,
-        "station_daily_metrics": settings.station_daily_metrics_path,
+        "latest_station_status": settings.latest_station_status_duckdb_path,
+        "system_metrics": settings.system_metrics_duckdb_path,
+        "station_hourly_metrics": settings.station_hourly_metrics_duckdb_path,
+        "station_daily_metrics": settings.station_daily_metrics_duckdb_path,
     }
 
 
@@ -17,7 +17,8 @@ def _create_view_sql(view_name: str, bucket: str):
         CREATE OR REPLACE VIEW {view_name} AS 
         SELECT * FROM 
         read_parquet(
-            '{bucket}/**/*.parquet'
+            '{bucket}/**/*.parquet',
+            hive_partitioning={True}
         );
     """
 

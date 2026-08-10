@@ -1,5 +1,5 @@
 SELECT
-    day,
+    MAKE_DATE(year, month, day) AS date,
 
     ROUND(AVG(avg_bikes_available), 2) AS avg_bikes_available,
     ROUND(AVG(avg_docks_available), 2) AS avg_docks_available,
@@ -30,5 +30,5 @@ SELECT
     ) AS lowest_occupancy_rate
 
 FROM station_daily_metrics
-GROUP BY day
-ORDER BY day;
+GROUP BY year, month, day
+ORDER BY year, month, day;

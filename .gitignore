@@ -23,3 +23,5 @@ test.py
 *.db
 *airflow.cfg
 *webserver_config.py
+
+*.duckdb.wal

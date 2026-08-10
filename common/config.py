@@ -18,12 +18,15 @@ class Settings(BaseSettings):
     minio_secure: bool = False
 
     latest_station_status_path: str = "s3a://gold/latest_station_status"
-
     station_hourly_metrics_path: str = "s3a://gold/station_hourly"
-
     station_daily_metrics_path: str = "s3a://gold/station_daily"
-
     system_metrics_path: str = "s3a://gold/system_metrics"
+
+    # DuckDB
+    latest_station_status_duckdb_path: str = "s3://gold/latest_station_status"
+    station_hourly_metrics_duckdb_path: str = "s3://gold/station_hourly"
+    station_daily_metrics_duckdb_path: str = "s3://gold/station_daily"
+    system_metrics_duckdb_path: str = "s3://gold/system_metrics"
 
     telegram_bot_token: str
     telegram_chat_id: str
