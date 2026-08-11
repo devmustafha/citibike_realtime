@@ -44,7 +44,7 @@ def main() -> None:
 
     finally:
         producer.flush()
-        producer.close()
+        # producer.close()
 
 
 if __name__ == "__main__":

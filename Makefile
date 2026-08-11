@@ -5,7 +5,7 @@ run-bronze:
 	docker exec -it citibike-spark-master /opt/spark/bin/spark-submit /opt/spark/apps/bronze/ingest_station_status.py	
 
 run-silver:
-	docker exec -it citibike-spark-master /opt/spark/bin/spark-submit /opt/spark/apps/silver/station_status/ingest.py
+	docker exec -it citibike-spark-master /opt/spark/bin/spark-submit /opt/spark/apps/silver/station_status/main.py
 
 run-latest-station-status:
 	docker exec -it citibike-spark-master /opt/spark/bin/spark-submit /opt/spark/apps/gold/latest_station_status/main.py
