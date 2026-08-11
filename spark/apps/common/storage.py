@@ -29,7 +29,10 @@ def gold_checkpoint_path(dataset: str) -> str:
     return f"s3a://{GOLD_BUCKET}/checkpoints/{dataset}"
 
 
+BRONZE_STATION_STATUS_PATH = f"s3a://{BRONZE_BUCKET}/station_status"
+BRONZE_STATION_STATUS_CHECKPOINT_PATH = f"s3a://{BRONZE_BUCKET}/checkpoint"
 SILVER_STATION_STATUS_PATH = f"s3a://{SILVER_BUCKET}/station_status"
+SILVER_STATION_STATUS_CHECKPOINT_PATH = f"s3a://{SILVER_BUCKET}/checkpoint"
 
 GOLD_STATION_LATEST_PATH = f"s3a://{GOLD_BUCKET}/latest_station_status"
 GOLD_STATION_HOURLY_PATH = f"s3a://{GOLD_BUCKET}/station_hourly"
