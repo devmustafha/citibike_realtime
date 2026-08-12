@@ -2,7 +2,7 @@ up:
 	docker compose up -d
 
 run-bronze:
-	docker exec -it citibike-spark-master /opt/spark/bin/spark-submit /opt/spark/apps/bronze/ingest_station_status.py	
+	docker exec -it citibike-spark-master /opt/spark/bin/spark-submit /opt/spark/apps/bronze/station_status/main.py	
 
 run-silver:
 	docker exec -it citibike-spark-master /opt/spark/bin/spark-submit /opt/spark/apps/silver/station_status/main.py

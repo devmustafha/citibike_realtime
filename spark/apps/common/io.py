@@ -27,12 +27,14 @@ def write_stream_bucket(
     processingTime: str = "10 seconds",
 ):
 
-    return (
+    stream_writer = (
         df.writeStream.format("parquet")
         .outputMode(write_mode)
         .trigger(processingTime=processingTime)
         .option("path", path)
         .option("checkpointLocation", checkpointLocation)
-        .partitionBy(partitionBy)
-        .start()
     )
+    if partitionBy is not None:
+        stream_writer = stream_writer.partitionBy(partitionBy)
+
+    return stream_writer.start()

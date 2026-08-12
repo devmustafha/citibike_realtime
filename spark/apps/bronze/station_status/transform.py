@@ -15,14 +15,14 @@ def transform_station_status(df: DataFrame) -> DataFrame:
         ).alias("data"),
         col("timestamp").alias("kafka_timestamp"),
         col("topic"),
-        col("partition"),
-        col("offset"),
+        col("partition").alias("kafka_partition"),
+        col("offset").alias("kafka_offset"),
     ).select(
         "data.*",
         "kafka_timestamp",
         "topic",
-        "partition",
-        "offset",
+        "kafka_partition",
+        "kafka_offset",
     )
 
     return parsed_df.withColumn(
