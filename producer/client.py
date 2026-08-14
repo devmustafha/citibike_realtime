@@ -4,7 +4,12 @@ import httpx
 
 from common.config import get_settings
 from common.logging import setup_logging
-from producer.models import StationStatusData, StationStatusResponse
+from producer.models import (
+    StationInformation,
+    StationInformationResponse,
+    StationStatusData,
+    StationStatusResponse,
+)
 
 setup_logging()
 
@@ -27,6 +32,21 @@ class CitiBikeClient:
             validated_response = StationStatusResponse.model_validate(response.json())
             stations = validated_response.data.stations
             return stations
+        except httpx.HTTPError:
+            raise
+
+    def get_station_information(self) -> list[StationInformation]:
+        settings = get_settings()
+        try:
+            response = self._client.get(settings.citibike_station_information_url)
+
+            response.raise_for_status()
+
+            validated_response = StationInformationResponse.model_validate(
+                response.json()
+            )
+            station_information = validated_response.data.stations
+            return station_information
         except httpx.HTTPError:
             raise
 

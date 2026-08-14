@@ -31,6 +31,7 @@ def gold_checkpoint_path(dataset: str) -> str:
 
 BRONZE_STATION_STATUS_PATH = f"s3a://{BRONZE_BUCKET}/station_status"
 BRONZE_STATION_STATUS_CHECKPOINT_PATH = f"s3a://{BRONZE_BUCKET}/checkpoints"
+BRONZE_STATION_INFORMATION_PATH = f"s3a://{BRONZE_BUCKET}/station_information"
 SILVER_STATION_STATUS_PATH = f"s3a://{SILVER_BUCKET}/station_status"
 SILVER_STATION_STATUS_CHECKPOINT_PATH = f"s3a://{SILVER_BUCKET}/checkpoints"
 

@@ -150,7 +150,7 @@ services:
     container_name: citibike-spark-master
     hostname: spark-master
     environment:
-      PYTHONPATH: /opt/spark/apps
+      PYTHONPATH: /opt:/opt/producer:/opt/spark/apps
     command:
       - /opt/spark/bin/spark-class
       - org.apache.spark.deploy.master.Master
@@ -159,6 +159,7 @@ services:
       - "8081:8080"
     volumes:
       - ./spark/apps:/opt/spark/apps
+      - ./producer:/opt/producer
 
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/ > /dev/null 2>&1"]
@@ -180,7 +181,7 @@ services:
     container_name: citibike-spark-worker
     hostname: spark-worker
     environment:
-      PYTHONPATH: /opt/spark/apps
+      PYTHONPATH: /opt:/opt/producer:/opt/spark/apps
       SPARK_WORKER_CORES: 2
       SPARK_WORKER_MEMORY: 2g
 

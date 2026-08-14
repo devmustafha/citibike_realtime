@@ -5,6 +5,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     citibike_api_url: str = "https://gbfs.lyft.com/gbfs/2.3/bkn/fr/station_status.json"
+    citibike_station_information_url: str = (
+        "https://gbfs.lyft.com/gbfs/2.3/bkn/fr/station_information.json"
+    )
     kafka_bootstrap_servers: str
     poll_interval_seconds: int = 30
     kafka_station_status_topic: str = "station-status"

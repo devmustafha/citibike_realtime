@@ -29,3 +29,20 @@ class StationStatusResponse(BaseModel):
     ttl: int
     version: str
     data: StationStatusData
+
+
+class StationInformation(BaseModel):
+    station_id: str
+    name: str
+    short_name: str
+
+
+class StationInformationData(BaseModel):
+    stations: list[StationInformation]
+
+
+class StationInformationResponse(BaseModel):
+    last_updated: int
+    ttl: int
+    version: str
+    data: StationInformationData
