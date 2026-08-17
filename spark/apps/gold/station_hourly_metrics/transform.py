@@ -13,7 +13,7 @@ def build_station_hourly_metrics(df: DataFrame, process_date: date) -> DataFrame
         .filter(col("month") == process_date.month)
         .filter(col("day") == process_date.day)
         .withColumn("hour", hour("last_reported_ts"))
-        .groupBy("station_id", "year", "month", "day", "hour")
+        .groupBy("station_id", "year", "month", "day", "hour", "name", "capacity")
         .agg(
             min("num_bikes_available").alias("min_bikes_available"),
             max("num_bikes_available").alias("max_bikes_available"),

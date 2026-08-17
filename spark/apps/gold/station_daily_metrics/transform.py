@@ -12,7 +12,7 @@ def build_station_daily_metrics(df: DataFrame, process_date: date) -> DataFrame:
         df.filter(col("year") == process_date.year)
         .filter(col("month") == process_date.month)
         .filter(col("day") == process_date.day)
-        .groupBy("station_id", "year", "month", "day")
+        .groupBy("station_id", "year", "month", "day", "name", "capacity")
         .agg(
             min("num_bikes_available").alias("min_bikes_available"),
             max("num_bikes_available").alias("max_bikes_available"),

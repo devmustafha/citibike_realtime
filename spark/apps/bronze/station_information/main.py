@@ -14,9 +14,8 @@ def load_stations_information_data() -> None:
         bronze_df = transform_station_information_api_data(station_information_df)
         write_bucket(bronze_df, BRONZE_STATION_INFORMATION_PATH)
 
-        spark.stop()
     finally:
-        pass
+        spark.stop()
 
 
 if __name__ == "__main__":
