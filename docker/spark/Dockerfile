@@ -6,6 +6,10 @@ RUN apt-get update && \
     apt-get install -y curl && \
     rm -rf /var/lib/apt/lists/*
 
+RUN python3 -m pip install \
+    --no-cache-dir \
+    httpx==0.28.1
+
 RUN mkdir -p /tmp/ivy
 
 RUN /opt/spark/bin/spark-submit \

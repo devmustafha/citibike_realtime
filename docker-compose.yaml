@@ -151,6 +151,7 @@ services:
     hostname: spark-master
     environment:
       PYTHONPATH: /opt:/opt/producer:/opt/spark/apps
+      CITIBIKE_STATION_INFORMATION_URL: ${CITIBIKE_STATION_INFORMATION_URL}
     command:
       - /opt/spark/bin/spark-class
       - org.apache.spark.deploy.master.Master
@@ -182,6 +183,7 @@ services:
     hostname: spark-worker
     environment:
       PYTHONPATH: /opt:/opt/producer:/opt/spark/apps
+      CITIBIKE_STATION_INFORMATION_URL: ${CITIBIKE_STATION_INFORMATION_URL}
       SPARK_WORKER_CORES: 2
       SPARK_WORKER_MEMORY: 2g
 
